@@ -1,0 +1,31 @@
+---
+all:
+  hosts:
+    openstack-kolla:
+      ansible_ssh_user: vagrant
+      ansible_ssh_password: vagrant
+      ansible_become: true
+    openstack-node-1:
+      ansible_ssh_user: vagrant
+      ansible_ssh_password: vagrant
+      ansible_become: true
+    openstack-node-2:
+      ansible_ssh_user: vagrant
+      ansible_ssh_password: vagrant
+      ansible_become: true
+    openstack-node-3:
+      ansible_ssh_user: vagrant
+      ansible_ssh_password: vagrant
+      ansible_become: true
+  children:
+    kolla:
+      hosts:
+        openstack-kolla:
+    nodes:
+      hosts:
+        openstack-node-1:
+        openstack-node-2:
+        openstack-node-3:
+    storage:
+      hosts:
+        openstack-kolla:

@@ -1,0 +1,38 @@
+---
+- name: Install nfs
+  package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - nfs-utils
+    - rpcbind
+
+- name: Start and enable service nfs nfs-server
+  service:
+    name: nfs-server
+    state: started
+    enabled: true
+
+- name: Start and enable service rpc-bind
+  service:
+    name: rpcbind
+    state: started
+    enabled: true
+
+- name: Create export folder
+  file:
+    path: /cinder_export
+    state: directory
+    mode: '0777'
+    owner: vagrant
+    group: vagrant
+
+- name: Define export file
+  lineinfile:
+    path: /etc/exports
+    create: true
+    line: "/cinder_export 192.168.122.0/24(rw,sync,no_subtree_check,no_root_squash)"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reload nfs server

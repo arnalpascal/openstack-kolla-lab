@@ -1,0 +1,8 @@
+---
+kolla_ansible_dependencies:
+  - libffi-devel
+  - gcc
+  - openssl-devel
+
+kolla_ansible_pip_dependencies:
+  - ansible

@@ -1,0 +1,25 @@
+---
+- name: Install dependencies
+  package:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ kolla_ansible_dependencies }}"
+
+- name: Install ansible version {{ kolla_ansible_ansible_version }}
+  pip:
+    name: ansible
+    version: "{{ kolla_ansible_ansible_version }}"
+
+- name: Install kolla_ansible version {{ kolla_ansible_version }}
+  pip:
+    name: kolla-ansible
+    version: "{{ kolla_ansible_version }}"
+
+- name: Create kolla-ansible folder
+  file:
+    src: "{{ kolla_ansible_kolla_configuration }}" 
+    dest: /etc/kolla
+    state: link
+    mode: '0744'
+    owner: "{{ kolla_ansible_user }}"
+    group: "{{ kolla_ansible_user }}"

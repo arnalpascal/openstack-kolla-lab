@@ -1,0 +1,9 @@
+---
+- name: Configure Cinder NFS backend Storage
+  lineinfile:
+    path: /etc/kolla/config/nfs_shares
+    create: true
+    line: "openstack-kolla:/cinder_export"
+    owner: vagrant
+    group: vagrant
+    mode: '0644'

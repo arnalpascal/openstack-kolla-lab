@@ -1,0 +1,33 @@
+---
+- name: Configure all openstack POC VMs
+  hosts: all
+  roles:
+    - prepare-system
+    - prepare-vagrant-vm
+    - python
+
+- name: Configure Openstack nodes
+  hosts: nodes
+  roles:
+    - docker
+  tasks:
+    - name: Install Python docker
+      pip:
+        name: docker
+        state: latest
+
+- name: Configure Kolla-ansible
+  hosts: kolla
+  roles:
+    - install-kolla
+    - openstack-client
+
+- name: Configure nfs storage backend
+  hosts: openstack-kolla
+  roles:
+    - nfs
+
+- name: Configure Cinder 
+  hosts: storage
+  roles:
+    - openstack-cinder-nfs

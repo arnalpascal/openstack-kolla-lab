@@ -1,0 +1,5 @@
+---
+- name: Reload nfs server
+  service:
+    name: nfs-server
+    state: reloaded
