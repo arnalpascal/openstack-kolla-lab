@@ -16,11 +16,11 @@ resource "openstack_networking_subnet_v2" "openstack_lab_subnet_external" {
   enable_dhcp     = false
   
   allocation_pool {
-    start = "192.168.121.5"
-    end   = "192.168.121.10"
+    start = "10.10.20.5"
+    end   = "10.10.20.10"
   } 
-  cidr            = "192.168.121.0/24"
-  gateway_ip      = "192.168.121.1"
+  cidr            = "10.10.20.0/24"
+  gateway_ip      = "10.10.20.1"
   ip_version      = 4
 }
 
@@ -33,6 +33,6 @@ resource "openstack_networking_subnet_v2" "openstack_lab_subnet" {
   name            = "openstack-lab-subnet"
 #  tenant_id       = openstack_identity_project_v3.openstack_lab.id
   network_id      = openstack_networking_network_v2.openstack_lab_network.id
-  cidr            = "10.10.10.0/24"
+  cidr            = "10.10.30.0/24"
   ip_version      = 4
 }

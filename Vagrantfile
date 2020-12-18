@@ -10,13 +10,11 @@ Vagrant.configure("2") do |config|
     o.vm.box_check_update = true
     o.vm.hostname = "openstack-kolla"
 
+    o.vm.network :private_network, :ip => '172.28.128.100'
+    o.vm.network :private_network, :ip => '10.10.20.100'
+ 
     o.vm.synced_folder "./openstack-kolla", "/vagrant", type: "rsync"
     o.vm.synced_folder "./kolla_configuration", "/kolla_configuration", type: "rsync"
-
-    o.vm.network :private_network,
-      :type => "dhcp",
-      :libvirt__network_name => "external_network",
-      :libvirt__network_address => '10.10.10.0'
 
     o.vm.provider :libvirt do |p|
       p.cpus = 2 
@@ -38,12 +36,10 @@ Vagrant.configure("2") do |config|
     o.vm.box_check_update = true
     o.vm.hostname = "openstack-node-1"
 
-    o.vm.synced_folder "./openstack-node-1", "/vagrant", type: "rsync"
+    o.vm.network :private_network, :ip => '172.28.128.101'
+    o.vm.network :private_network, :ip => '10.10.20.101'
 
-    o.vm.network :private_network,
-      :type => "dhcp",
-      :libvirt__network_name => "external_network",
-      :libvirt__network_address => '10.10.10.0'
+    o.vm.synced_folder "./openstack-node-1", "/vagrant", type: "rsync"
 
     o.vm.provider :libvirt do |p|
       p.cpus = 8
@@ -66,12 +62,10 @@ Vagrant.configure("2") do |config|
     o.vm.box_check_update = true
     o.vm.hostname = "openstack-node-2"
 
-    o.vm.synced_folder "./openstack-node-2", "/vagrant", type: "rsync"
+    o.vm.network :private_network, :ip => '172.28.128.102'
+    o.vm.network :private_network, :ip => '10.10.20.102'
 
-    o.vm.network :private_network,
-      :type => "dhcp",
-      :libvirt__network_name => "external_network",
-      :libvirt__network_address => '10.10.10.0'
+    o.vm.synced_folder "./openstack-node-2", "/vagrant", type: "rsync"
 
     o.vm.provider :libvirt do |p|
       p.cpus = 8
@@ -94,12 +88,10 @@ Vagrant.configure("2") do |config|
     o.vm.box_check_update = true
     o.vm.hostname = "openstack-node-3"
 
-    o.vm.synced_folder "./openstack-node-3", "/vagrant", type: "rsync"
+    o.vm.network :private_network, :ip => '172.28.128.103'
+    o.vm.network :private_network, :ip => '10.10.20.103'
 
-    o.vm.network :private_network,
-      :type => "dhcp",
-      :libvirt__network_name => "external_network",
-      :libvirt__network_address => '10.10.10.0'
+    o.vm.synced_folder "./openstack-node-3", "/vagrant", type: "rsync"
 
     o.vm.provider :libvirt do |p|
       p.cpus = 8
