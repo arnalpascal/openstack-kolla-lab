@@ -19,8 +19,9 @@ Vagrant.configure("2") do |config|
       :libvirt__network_address => '10.10.10.0'
 
     o.vm.provider :libvirt do |p|
-      p.cpus = 1 
-      p.memory = 512
+      p.cpus = 2 
+      #p.memory = 256 
+      p.memory = 512 
       p.nested = true
       p.graphics_type = "none"
       p.nested = true
@@ -45,8 +46,9 @@ Vagrant.configure("2") do |config|
       :libvirt__network_address => '10.10.10.0'
 
     o.vm.provider :libvirt do |p|
-      p.cpus = 4
-      p.memory = 4096
+      p.cpus = 8
+      #p.memory = 6144
+      p.memory = 8192
       p.nested = true
       p.graphics_type = "none"
       p.machine_virtual_size = 40
@@ -72,8 +74,9 @@ Vagrant.configure("2") do |config|
       :libvirt__network_address => '10.10.10.0'
 
     o.vm.provider :libvirt do |p|
-      p.cpus = 4
-      p.memory = 4096
+      p.cpus = 8
+      #p.memory = 6144
+      p.memory = 8192
       p.nested = true
       p.graphics_type = "none"
       p.machine_virtual_size = 40
@@ -99,8 +102,9 @@ Vagrant.configure("2") do |config|
       :libvirt__network_address => '10.10.10.0'
 
     o.vm.provider :libvirt do |p|
-      p.cpus = 4
-      p.memory = 4096
+      p.cpus = 8
+      #p.memory = 6144
+      p.memory = 8192
       p.nested = true
       p.graphics_type = "none"
       p.machine_virtual_size = 40
