@@ -21,6 +21,7 @@
   roles:
     - install-kolla
     - openstack-client
+    - terraform
 
 - name: Configure nfs storage backend
   hosts: openstack-kolla
