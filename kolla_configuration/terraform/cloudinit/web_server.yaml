@@ -1,0 +1,13 @@
+#cloud-config
+
+package_upgrade: True
+
+packages:
+  - nginx 
+
+runcmd:
+  - [ systemctl, daemon-reload ]
+  - [ systemctl, enable, sshd.service ]
+  - [ systemctl, start, --no-block, sshd.service ]
+  - [ systemctl, enable, nginx.service ]
+  - [ systemctl, start, --no-block, nginx.service ]
