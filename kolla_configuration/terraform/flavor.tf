@@ -24,9 +24,9 @@ resource "openstack_compute_flavor_access_v2" "m1_tiny_openstack-lab" {
 
 resource "openstack_compute_flavor_v2" "m1_small" {
   name  = "m1.small"
-  ram   = "2048"
+  ram   = "1024"
   vcpus = "1"
-  disk  = "20"
+  disk  = "10"
 }
 
 resource "openstack_compute_flavor_access_v2" "m1_small_openstack-lab" {
@@ -36,7 +36,7 @@ resource "openstack_compute_flavor_access_v2" "m1_small_openstack-lab" {
 
 resource "openstack_compute_flavor_v2" "m1_medium" {
   name  = "m1.medium"
-  ram   = "4096"
+  ram   = "2048"
   vcpus = "2"
   disk  = "40"
 }
