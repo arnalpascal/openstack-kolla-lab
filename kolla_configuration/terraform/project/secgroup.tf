@@ -1,11 +1,11 @@
 resource "openstack_networking_secgroup_v2" "secgroup_server" {
   name        = "secgroup_server"
-#  tenant_id   = openstack_identity_project_v3.openstack_lab.id
+#  tenant_id   = data.openstack_identity_project_v3.openstack_lab.id
   description = "Open ssh port and icmp"
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ssh" {
-#  tenant_id         = openstack_identity_project_v3.openstack_lab.id
+#  tenant_id         = data.openstack_identity_project_v3.openstack_lab.id
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "tcp"
@@ -16,7 +16,7 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ssh" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_icmp" {
-#  tenant_id         = openstack_identity_project_v3.openstack_lab.id
+#  tenant_id         = data.openstack_identity_project_v3.openstack_lab.id
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "icmp"
@@ -25,12 +25,12 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_icmp" {
 
 resource "openstack_networking_secgroup_v2" "secgroup_web_server" {
   name        = "secgroup_web_server"
-#  tenant_id   = openstack_identity_project_v3.openstack_lab.id
+#  tenant_id   = data.openstack_identity_project_v3.openstack_lab.id
   description = "Open http and https default port"
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_web" {
-#  tenant_id         = openstack_identity_project_v3.openstack_lab.id
+#  tenant_id         = data.openstack_identity_project_v3.openstack_lab.id
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "tcp"
@@ -41,7 +41,7 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_web" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_web_tls" {
-#  tenant_id         = openstack_identity_project_v3.openstack_lab.id
+#  tenant_id         = data.openstack_identity_project_v3.openstack_lab.id
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "tcp"
