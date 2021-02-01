@@ -32,4 +32,7 @@ Start the lab with :
 
 Get Floating IP with openstack command `openstack floating ip list` or `openstack server list`
 
+![Topologie](topo.png)
+![Topologie Graph](topo_graph.png)
+
 Enjoy !!!

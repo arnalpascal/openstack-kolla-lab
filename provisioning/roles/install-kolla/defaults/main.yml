@@ -1,5 +1,5 @@
 ---
 kolla_ansible_version: 10.2.0
 kolla_ansible_user: vagrant
-kolla_ansible_ansible_version: 2.9.16
+kolla_ansible_ansible_version: 2.9.17
 kolla_ansible_kolla_configuration: /kolla_configuration
