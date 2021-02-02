@@ -1,6 +1,9 @@
 # openstack-kolla-lab
 
 This is a lab of openstack, deploy with kolla-ansible as GitOps.
+
+![Openstack cluster deployment](deployment.png)
+
 This lab deploy this cloud infrastructure :
 1. Some Flavors
 1. Centos 8 and Cirros Images
