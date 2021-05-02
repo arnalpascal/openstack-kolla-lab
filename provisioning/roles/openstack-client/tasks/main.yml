@@ -1,5 +1,6 @@
 ---
 - name: enable powertools
+  become: true
   ini_file:
     path: /etc/yum.repos.d/CentOS-Linux-PowerTools.repo
     section: powertools
@@ -8,6 +9,7 @@
     mode: "0644"
 
 - name: Install Openstack client
+  become: true
   dnf:
     name: "{{ item }}"
     state: latest

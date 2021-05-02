@@ -1,6 +1,18 @@
 ---
 - name: Install Python
+  become: true
   dnf:
     name: "{{ item }}"
     state: latest
   loop: "{{ python_packages }}"
+
+- name: Update pip
+  become: true
+  pip:
+    name: pip
+    state: latest
+
+- name: Install virtual env
+  pip:
+    name: virtualenv
+    state: latest

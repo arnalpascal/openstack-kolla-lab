@@ -1,3 +1,4 @@
 ---
-- name: Restart systemd
-  shell: "kill -TERM 1"
+- name: Restart system
+  become: true
+  reboot:

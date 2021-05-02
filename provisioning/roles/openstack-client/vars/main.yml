@@ -1,4 +1,4 @@
 ---
 openstack_client_packages:
-  - centos-release-openstack-ussuri
+  - centos-release-openstack-victoria
   - python3-openstackclient

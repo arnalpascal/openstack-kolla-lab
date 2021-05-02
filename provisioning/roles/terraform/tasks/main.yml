@@ -1,5 +1,6 @@
 ---
 - name: Install packages before terraform
+  become: true
   package: 
     name: "{{ item }}"
     state: latest
@@ -8,6 +9,7 @@
     - unzip
 
 - name: terraform install
+  become: true
   unarchive:
     src: https://releases.hashicorp.com/terraform/0.14.4/terraform_0.14.4_linux_amd64.zip
     dest: /usr/bin

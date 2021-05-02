@@ -1,35 +1,24 @@
 ---
-- name: Add dependeny dnf-plugins-core
-  dnf:
-    name: dnf-plugins-core
-    state: latest
-
-- name: Add dependeny yum-utils
-  dnf:
-    name: yum-utils
-    state: latest
-
 - name: Add Docker dnf repository
+  become: true
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docer-ce.repo
 
-- name: Install Containerd
+- name: Add packages
+  become: true
   dnf:
-    name: containerd
+    name: "{{ item }}"
     state: latest
-
-- name: Install Docker
-  dnf:
-    name: docker-ce
-    state: latest
-
-- name: Install Docker cli
-  dnf:
-    name: docker-ce-cli
-    state: latest
+  loop:
+    - dnf-plugins-core
+    - yum-utils
+    - containerd
+    - docker-ce
+    - docker-ce-cli
 
 - name: Start and Enable Docker service
+  become: true
   service:
     name: docker
     state: started

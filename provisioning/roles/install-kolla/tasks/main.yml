@@ -1,21 +1,31 @@
 ---
 - name: Install dependencies
+  become: true
   package:
     name: "{{ item }}"
     state: latest
   loop: "{{ kolla_ansible_dependencies }}"
 
+- name: Update pip
+  pip:
+    name: pip
+    state: latest
+    virtualenv: /home/vagrant/pyvirtenv
+
 - name: Install ansible version {{ kolla_ansible_ansible_version }}
   pip:
     name: ansible
     version: "{{ kolla_ansible_ansible_version }}"
+    virtualenv: /home/vagrant/pyvirtenv
 
 - name: Install kolla_ansible version {{ kolla_ansible_version }}
   pip:
     name: kolla-ansible
     version: "{{ kolla_ansible_version }}"
+    virtualenv: /home/vagrant/pyvirtenv
 
 - name: Create kolla-ansible folder
+  become: true
   file:
     src: "{{ kolla_ansible_kolla_configuration }}" 
     dest: /etc/kolla

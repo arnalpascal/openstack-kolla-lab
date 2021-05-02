@@ -1,17 +1,14 @@
 ---
-- name: Update systemd
-  dnf:
-    name: systemd 
-    state: latest
-  notify:
-    - Restart systemd
-
 - name: Update host
+  become: true
   dnf:
     name: "*"
     state: latest
+  notify:
+    - Restart system
 
 - name: Enable EPEL Repository on CentOS 8
+  become: true
   dnf:
     name: epel-release
     state: latest

@@ -1,5 +1,6 @@
 ---
 - name: Configure Cinder NFS backend Storage
+  become: true
   lineinfile:
     path: /etc/kolla/config/nfs_shares
     create: true

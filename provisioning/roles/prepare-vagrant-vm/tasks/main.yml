@@ -22,17 +22,20 @@
     group: vagrant
 
 - name: Remove dupplicate hostname in hosts file
+  become: true
   lineinfile:
     path: /etc/hosts
     regexp: '^127(.+)$'
     state: absent
 
 - name: Install growpart
+  become: true
   dnf:
     name: cloud-utils-growpart
     state: latest
 
 - name: partition info
+  become: true
   parted:
     device: "{{dev}}"
     number: "{{part}}"
@@ -43,10 +46,12 @@
     gap_kb: "{{partinfo.disk.size - partinfo.partitions[vars.part-1].end}}"
 
 - name: Extend partition
+  become: true
   command: "growpart {{ dev }} {{ part }}"
   when: max_gap_kb < gap_kb|int
 
 - name: grow filesystem until maximum block size
+  become: true
   filesystem:
     fstype: xfs
     dev: "{{ dev }}{{ part }}"

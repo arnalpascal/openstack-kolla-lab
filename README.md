@@ -22,9 +22,10 @@ This lab deploy this cloud infrastructure :
 Start the lab with :
 1. Start VMs with `vagrant up --no-parallel`
 1. Deploy Openstack with :
+   1. source pyvirtenv/bin/activate
    1. `cd /etc/kolla`
-   1. check connection `ansible -i inventory.yaml all -m ping`
-   1. deploy Openstack `kolla-ansible -i inventory.yaml deploy`
+   1. check connection `ansible -i inventory.yml all -m ping`
+   1. deploy Openstack `kolla-ansible -i inventory.yml deploy`
 1. Generate ENV with `kolla-ansible post-deploy`
 1. Source ENV `. admin-openrc.sh`
 1. Deploy Infra with terraform, first terraform/infra, next terraform/project

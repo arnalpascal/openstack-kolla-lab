@@ -12,6 +12,7 @@
     - docker
   tasks:
     - name: Install Python docker
+      become: true
       pip:
         name: docker
         state: latest

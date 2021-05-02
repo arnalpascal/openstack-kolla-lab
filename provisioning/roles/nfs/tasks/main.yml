@@ -1,5 +1,6 @@
 ---
 - name: Install nfs
+  become: true
   package:
     name: "{{ item }}"
     state: latest
@@ -8,18 +9,21 @@
     - rpcbind
 
 - name: Start and enable service nfs nfs-server
+  become: true
   service:
     name: nfs-server
     state: started
     enabled: true
 
 - name: Start and enable service rpc-bind
+  become: true
   service:
     name: rpcbind
     state: started
     enabled: true
 
 - name: Create export folder
+  become: true
   file:
     path: /cinder_export
     state: directory
@@ -28,6 +32,7 @@
     group: vagrant
 
 - name: Define export file
+  become: true
   lineinfile:
     path: /etc/exports
     create: true
