@@ -1,6 +1,6 @@
 # openstack-kolla-lab
 
-This is a lab of openstack, deploy with kolla-ansible as GitOps.
+This is a lab of openstack victoria, deploy with kolla-ansible.
 
 ![Openstack cluster deployment](deployment.png)
 
@@ -21,7 +21,7 @@ This lab deploy this cloud infrastructure :
 
 Start the lab with :
 1. Start VMs with `vagrant up --no-parallel`
-1. Deploy Openstack with :
+1. Deploy Openstack with command on openstack-kolla :
    1. source pyvirtenv/bin/activate
    1. `cd /etc/kolla`
    1. check connection `ansible -i inventory.yml all -m ping`
