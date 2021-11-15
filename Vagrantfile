@@ -1,92 +1,85 @@
+boxes = [
+    {
+        :name           => "openstack-kolla",
+        :hostname       => "openstack-kolla",
+        :ips            => ['172.28.128.100', '10.10.20.100'],
+        :synced_folders => [
+          { :src => "./openstack-kolla", :dest => "/vagrant" },
+          { :src => "./kolla_configuration", :dest => "/kolla_configuration" },
+        ],
+        :cpus                 => 2,
+        :memory               => 512,
+        :machine_virtual_size => 20
+    },
+    {
+        :name           => "openstack-node-1",
+        :hostname       => "openstack-node-1",
+        :ips            => ['172.28.128.101', '10.10.20.101'],
+        :synced_folders => [
+          { :src => "./openstack-node-1", :dest => "/vagrant" },
+        ],
+        :cpus                 => 8,
+        :memory               => 8192,
+        :machine_virtual_size => 40
+    },
+    {
+        :name           => "openstack-node-2",
+        :hostname       => "openstack-node-2",
+        :ips            => ['172.28.128.102', '10.10.20.102'],
+        :synced_folders => [
+          { :src => "./openstack-node-2", :dest => "/vagrant" },
+        ],
+        :cpus                 => 8,
+        :memory               => 8192,
+        :machine_virtual_size => 40
+    },
+    {
+        :name           => "openstack-node-3",
+        :hostname       => "openstack-node-3",
+        :ips            => ['172.28.128.103', '10.10.20.103'],
+        :synced_folders => [
+          { :src => "./openstack-node-3", :dest => "/vagrant" },
+        ],
+        :cpus                 => 8,
+        :memory               => 8192,
+        :machine_virtual_size => 40
+    },
+]
 Vagrant.configure("2") do |config|
+  config.vm.box = "centos/8"
+  config.vm.box_check_update = true
+
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.manage_guest = true
   config.hostmanager.ignore_private_ip = false
   config.hostmanager.include_offline = true
 
-  config.vm.define "openstack-kolla", primary: true do |o|
-    o.vm.box = "centos/8"
-    o.vm.box_check_update = true
-    o.vm.hostname = "openstack-kolla"
+  boxes.each_with_index do |box, index|
+    config.vm.define box[:name] do |box_config|
+      box_config.vm.hostname = box[:hostname]
 
-    o.vm.network :private_network, :ip => '172.28.128.100'
-    o.vm.network :private_network, :ip => '10.10.20.100'
- 
-    o.vm.synced_folder "./openstack-kolla", "/vagrant", type: "rsync"
-    o.vm.synced_folder "./kolla_configuration", "/kolla_configuration", type: "rsync"
+      box[:ips].each do |ip|
+        box_config.vm.network :private_network, :ip => ip
+      end
 
-    o.vm.provider :libvirt do |p|
-      p.cpus = 2
-      p.memory = 512 
-      p.nested = true
-      p.graphics_type = "none"
-      p.qemu_use_session = false
+      box[:synced_folders].each do |folder|
+        box_config.vm.synced_folder folder[:src], folder[:dest], type: "rsync"
+      end
+
+      box_config.vm.provider :libvirt do |p|
+        p.cpus = box[:cpus]
+        p.memory = box[:memory]
+        p.nested = true
+        p.graphics_type = "none"
+        p.machine_virtual_size = box[:machine_virtual_size]
+        p.qemu_use_session = false
+      end
+
+      box_config.vm.provision "ansible" do |ansible|
+        ansible.playbook = "provisioning/playbook.yaml"
+        ansible.inventory_path= "provisioning/inventory.yaml"
+      end
     end
-  end
-
-  config.vm.define "openstack-node-1" do |o|
-    o.vm.box = "centos/8"
-    o.vm.box_check_update = true
-    o.vm.hostname = "openstack-node-1"
-
-    o.vm.network :private_network, :ip => '172.28.128.101'
-    o.vm.network :private_network, :ip => '10.10.20.101'
-
-    o.vm.synced_folder "./openstack-node-1", "/vagrant", type: "rsync"
-
-    o.vm.provider :libvirt do |p|
-      p.cpus = 8
-      p.memory = 8192
-      p.nested = true
-      p.graphics_type = "none"
-      p.machine_virtual_size = 40
-      p.qemu_use_session = false
-    end
-  end
-
-  config.vm.define "openstack-node-2" do |o|
-    o.vm.box = "centos/8"
-    o.vm.box_check_update = true
-    o.vm.hostname = "openstack-node-2"
-
-    o.vm.network :private_network, :ip => '172.28.128.102'
-    o.vm.network :private_network, :ip => '10.10.20.102'
-
-    o.vm.synced_folder "./openstack-node-2", "/vagrant", type: "rsync"
-
-    o.vm.provider :libvirt do |p|
-      p.cpus = 8
-      p.memory = 8192
-      p.nested = true
-      p.graphics_type = "none"
-      p.machine_virtual_size = 40
-      p.qemu_use_session = false
-    end
-  end
-
-  config.vm.define "openstack-node-3" do |o|
-    o.vm.box = "centos/8"
-    o.vm.box_check_update = true
-    o.vm.hostname = "openstack-node-3"
-
-    o.vm.network :private_network, :ip => '172.28.128.103'
-    o.vm.network :private_network, :ip => '10.10.20.103'
-
-    o.vm.synced_folder "./openstack-node-3", "/vagrant", type: "rsync"
-
-    o.vm.provider :libvirt do |p|
-      p.cpus = 8
-      p.memory = 8192
-      p.nested = true
-      p.graphics_type = "none"
-      p.machine_virtual_size = 40
-      p.qemu_use_session = false
-    end
-  end
-
-  config.vm.provision :ansible do |ansible|
-    ansible.playbook = "provisioning/playbook.yaml"
-    ansible.inventory_path= "provisioning/inventory.yaml"
-  end
+  end  
 end

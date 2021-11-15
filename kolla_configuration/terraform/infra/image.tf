@@ -14,7 +14,7 @@ resource "openstack_images_image_v2" "cirros" {
 
 resource "openstack_images_image_v2" "centos" {
   name             = "centos-8.3"
-  image_source_url = "https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.3.2011-20201204.2.x86_64.qcow2"
+  image_source_url = "https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2"
   container_format = "bare"
   disk_format      = "qcow2"
   visibility       = "public"

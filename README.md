@@ -1,6 +1,7 @@
 # openstack-kolla-lab
 
 This is a lab of openstack victoria, deploy with kolla-ansible.
+https://docs.openstack.org//kolla-ansible/latest/doc-kolla-ansible.pdf 
 
 ![Openstack cluster deployment](deployment.png)
 
