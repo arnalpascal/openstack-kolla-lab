@@ -13,6 +13,10 @@
     virtualenv: /home/vagrant/pyvirtenv
 
 - name: Install ansible version {{ kolla_ansible_ansible_version }}
+  environment:
+    PYTHONIOENCODING: UTF-8
+    LANG: en_US.UTF-8
+    LC_ALL: en_US.UTF-8
   pip:
     name: ansible
     version: "{{ kolla_ansible_ansible_version }}"
